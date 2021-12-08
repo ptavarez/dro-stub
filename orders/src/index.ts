@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
+import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
+import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
 
 const start = async () => {
   const { JWT_KEY, MONGO_URI, NATS_CLIENT_ID, NATS_URL, NATS_CLUSTER_ID } =
@@ -38,14 +40,17 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
+    new TicketCreatedListener(natsWrapper.client).listen();
+    new TicketUpdatedListener(natsWrapper.client).listen();
+
     await mongoose.connect(MONGO_URI);
-    console.info('Connected to Tickets Database!');
+    console.info('Connected to Orders Database!');
   } catch (err) {
     console.error(err);
   }
 
   app.listen(3000, () => {
-    console.info('Tickets service running on port 3000!');
+    console.info('Orders service running on port 3000!');
   });
 };
 
