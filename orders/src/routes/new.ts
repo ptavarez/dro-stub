@@ -16,7 +16,7 @@ import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+const EXPIRATION_WINDOW_SECONDS = 1 * 60;
 
 router.post(
   '/api/orders',
@@ -37,6 +37,8 @@ router.post(
     if (!ticket) {
       throw new NotFoundError();
     }
+
+    console.log(ticket);
 
     // Make sure that this ticket is not already reserved
     const isReserved = await ticket.isReserved();
