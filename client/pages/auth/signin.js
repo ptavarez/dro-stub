@@ -36,28 +36,28 @@ const SignUp = () => {
   return (
     <form onSubmit={onSubmit}>
       <h1>Sign In</h1>
-      <div className='form-group'>
+      <div className="mb-3">
         <label>Email</label>
         <input
-          type='email'
-          name='email'
+          type="email"
+          name="email"
           value={state.email}
           onChange={handleChange}
-          className='form-control'
+          className="form-control"
         />
       </div>
-      <div className='form-group'>
+      <div className="mb-3">
         <label>Password</label>
         <input
-          type='password'
-          name='password'
+          type="password"
+          name="password"
           value={state.password}
           onChange={handleChange}
-          className='form-control'
+          className="form-control"
         />
       </div>
       {errorNode}
-      <button className='btn btn-primary'>Sign In</button>
+      <button className="btn btn-primary">Sign In</button>
     </form>
   );
 };

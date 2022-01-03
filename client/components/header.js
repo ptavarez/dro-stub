@@ -8,20 +8,22 @@ const Header = ({ currentUser }) => {
   ]
     .filter((linkConfig) => linkConfig)
     .map(({ label, href }) => (
-      <li key={href} className='nav-item'>
+      <li key={href} className="nav-item">
         <Link href={href}>
-          <a className='nav-link link-light'>{label}</a>
+          <a className="nav-link link-light">{label}</a>
         </Link>
       </li>
     ));
 
   return (
-    <nav className='navbar navbar-dark bg-dark'>
-      <Link href='/'>
-        <a className='navbar-brand'>DroStub</a>
-      </Link>
-      <div className='d-flex justify-content-end'>
-        <ul className='nav d-flex align-items-center'>{links}</ul>
+    <nav className="navbar navbar-dark bg-dark">
+      <div className="container">
+        <Link href="/">
+          <a className="navbar-brand">DroStub</a>
+        </Link>
+        <div className="d-flex justify-content-end">
+          <ul className="nav d-flex align-items-center">{links}</ul>
+        </div>
       </div>
     </nav>
   );
