@@ -42,7 +42,7 @@ const NewTicket = () => {
 
   return (
     <div>
-      <h1>Create a Ticket</h1>
+      <h1>Create a Ticket!</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label>Title</label>
