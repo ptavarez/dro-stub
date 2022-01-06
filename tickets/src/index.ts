@@ -6,6 +6,7 @@ import { OrderCreatedListener } from './events/listeners/order-created-listener'
 import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
 
 const start = async () => {
+  console.log('Starting...');
   const { JWT_KEY, MONGO_URI, NATS_CLIENT_ID, NATS_URL, NATS_CLUSTER_ID } =
     process.env;
 
