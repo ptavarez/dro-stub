@@ -2,7 +2,7 @@ import { natsWrapper } from './nats-wrapper';
 import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 const start = async () => {
-  console.log('Starting...');
+  console.log('Starting....');
   const { NATS_CLIENT_ID, NATS_URL, NATS_CLUSTER_ID } = process.env;
 
   if (!NATS_CLIENT_ID) {
