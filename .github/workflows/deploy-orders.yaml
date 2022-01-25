@@ -18,8 +18,9 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push ptavarez/orders
-      - uses: digitalocean/action-doctl@v2
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
         with:
-          token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+          credentials_json: '${{ secrets.GKE_SA_KEY }}'
       - run: doctl kubernetes cluster kubeconfig save ticketing
       - run: kubectl rollout restart deployment orders-depl

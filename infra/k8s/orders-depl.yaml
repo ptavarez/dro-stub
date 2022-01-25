@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: us.gcr.io/central-accord-329914/orders
+          image: us.gcr.io/drostub-dev/orders
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
