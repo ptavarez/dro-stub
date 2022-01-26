@@ -1,4 +1,4 @@
-name: Deploy Manifests
+name: deploy-manifests
 
 on:
   push:
@@ -27,6 +27,5 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-        run: |-
-          kubectl rollout status deployment/$DEPLOYMENT_NAME
-          kubectl get services -o wide
+      - run: gcloud kubernetes cluster kubeconfig save ticketing
+      - run: kubectl apply -f infra/k8s
