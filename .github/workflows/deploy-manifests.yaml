@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'infra/k8s/**'
 
 jobs:
   setup-build-publish-deploy:
