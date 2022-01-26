@@ -21,9 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - run: cd auth && docker build -t ptavarez/auth .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker push ptavarez/auth
+        run: |-
+          cd auth && docker build -t ptavarez/auth .
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push ptavarez/auth
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
@@ -37,5 +38,6 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-      - run: gcloud kubernetes cluster kubeconfig save ticketing
-      - run: kubectl rollout restart deployment auth-depl
+        run: |-
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
+          kubectl get services -o wide
