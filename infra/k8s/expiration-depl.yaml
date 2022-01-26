@@ -15,11 +15,6 @@ spec:
       containers:
         - name: expiration
           image: ptavarez/expiration
-          ports:
-            - containerPort: 3000
-          env:
-            - name: PORT
-              value: '3000'
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
