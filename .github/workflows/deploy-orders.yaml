@@ -1,26 +1,26 @@
-name: deploy-orders
+# name: deploy-orders
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'orders/**'
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'orders/**'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: cd orders && docker build -t ptavarez/orders .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push ptavarez/orders
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          credentials_json: '${{ secrets.GKE_SA_KEY }}'
-      - run: doctl kubernetes cluster kubeconfig save ticketing
-      - run: kubectl rollout restart deployment orders-depl
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - run: cd orders && docker build -t ptavarez/orders .
+#       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+#         env:
+#           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#       - run: docker push ptavarez/orders
+#       - id: 'auth'
+#         uses: 'google-github-actions/auth@v0'
+#         with:
+#           credentials_json: '${{ secrets.GKE_SA_KEY }}'
+#       - run: gcloud kubernetes cluster kubeconfig save ticketing
+#       - run: kubectl rollout restart deployment orders-depl

@@ -1,26 +1,26 @@
-name: deploy-client
+# name: deploy-client
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'client/**'
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'client/**'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: cd client && docker build -t ptavarez/client .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push ptavarez/client
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          credentials_json: '${{ secrets.GKE_SA_KEY }}'
-      - run: doctl kubernetes cluster kubeconfig save ticketing
-      - run: kubectl rollout restart deployment client-depl
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - run: cd client && docker build -t ptavarez/client .
+#       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+#         env:
+#           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#       - run: docker push ptavarez/client
+#       - id: 'auth'
+#         uses: 'google-github-actions/auth@v0'
+#         with:
+#           credentials_json: '${{ secrets.GKE_SA_KEY }}'
+#       - run: gcloud kubernetes cluster kubeconfig save ticketing
+#       - run: kubectl rollout restart deployment client-depl

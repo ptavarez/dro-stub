@@ -1,26 +1,26 @@
-name: deploy-payments
+# name: deploy-payments
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'payments/**'
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'payments/**'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: cd payments && docker build -t ptavarez/payments .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push ptavarez/payments
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          credentials_json: '${{ secrets.GKE_SA_KEY }}'
-      - run: doctl kubernetes cluster kubeconfig save ticketing
-      - run: kubectl rollout restart deployment payments-depl
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - run: cd payments && docker build -t ptavarez/payments .
+#       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+#         env:
+#           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#       - run: docker push ptavarez/payments
+#       - id: 'auth'
+#         uses: 'google-github-actions/auth@v0'
+#         with:
+#           credentials_json: '${{ secrets.GKE_SA_KEY }}'
+#       - run: gcloud kubernetes cluster kubeconfig save ticketing
+#       - run: kubectl rollout restart deployment payments-depl

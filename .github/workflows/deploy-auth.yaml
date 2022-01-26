@@ -7,20 +7,35 @@ on:
     paths:
       - 'auth/**'
 
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 jobs:
-  build:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy the Auth Service
     runs-on: ubuntu-latest
+    environment: development
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - run: cd auth && docker build -t ptavarez/auth .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push ptavarez/auth
+
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GKE_SA_KEY }}'
-      - run: doctl kubernetes cluster kubeconfig save ticketing
+
+      - name: gcloud Setup
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+          export_default_credentials: true
+
+      - run: gcloud kubernetes cluster kubeconfig save ticketing
       - run: kubectl rollout restart deployment auth-depl
