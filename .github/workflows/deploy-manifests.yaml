@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  DEPLOYMENT_NAME: auth-depl
+
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy Manifests
@@ -27,5 +30,7 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
 
-      - run: gcloud kubernetes cluster kubeconfig save ticketing
-      - run: kubectl apply -f infra/k8s
+      - name: Deploy
+        run: |-
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
+          kubectl get services -o wide
