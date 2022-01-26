@@ -15,7 +15,7 @@ jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy the Auth Service
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     steps:
       - name: Checkout

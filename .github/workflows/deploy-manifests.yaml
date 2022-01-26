@@ -11,7 +11,7 @@ jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy Manifests
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     steps:
       - name: Checkout
