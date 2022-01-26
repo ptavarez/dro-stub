@@ -15,7 +15,11 @@ spec:
       containers:
         - name: payments
           image: ptavarez/payments
+          ports:
+            - containerPort: 3000
           env:
+            - name: PORT
+              value: '3000'
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
