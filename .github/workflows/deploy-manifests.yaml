@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'infra/k8s/**'
 
 env:
   DEPLOYMENT_NAME: auth-depl
