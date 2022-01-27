@@ -7,6 +7,19 @@ on:
     paths:
       - 'infra/k8s/**'
 
+on: 
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning' 
+        type: choice
+        options:
+        - info
+        - warning
+        - debug 
+
 env:
   DEPLOYMENT_NAME: auth-depl
   GKE_CLUSTER: dro-box
