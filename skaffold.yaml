@@ -6,9 +6,9 @@ deploy:
       - ./infra/k8s-dev/*
 build:
   googleCloudBuild:
-    projectId: central-accord-329914
+    projectId: drostub-dev
   artifacts:
-    - image: us.gcr.io/central-accord-329914/auth
+    - image: us.gcr.io/drostub-dev/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +16,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/central-accord-329914/client
+    - image: us.gcr.io/drostub-dev/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,7 +24,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/central-accord-329914/tickets
+    - image: us.gcr.io/drostub-dev/tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -32,7 +32,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/central-accord-329914/orders
+    - image: us.gcr.io/drostub-dev/orders
       context: orders
       docker:
         dockerfile: Dockerfile
@@ -40,7 +40,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/central-accord-329914/expiration
+    - image: us.gcr.io/drostub-dev/expiration
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -48,7 +48,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/central-accord-329914/payments
+    - image: us.gcr.io/drostub-dev/payments
       context: payments
       docker:
         dockerfile: Dockerfile
