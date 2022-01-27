@@ -14,13 +14,13 @@ const start = async () => {
 
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.info('Connected to Auth Database!');
+    console.log('Connected to Auth Database!');
   } catch (err) {
     console.error(err);
   }
 
   app.listen(3000, () => {
-    console.info('Auth service is up and running on port 3000!');
+    console.log('Auth service is up and running on port 3000!');
   });
 };
 

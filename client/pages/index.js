@@ -20,7 +20,7 @@ const LandingPage = ({ currentUser, tickets }) => {
       <table className='table'>
         <thead>
           <tr>
-            <th>Ticket</th>
+            <th>Stub</th>
             <th>Price</th>
           </tr>
         </thead>
