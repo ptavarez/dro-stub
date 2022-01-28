@@ -8,7 +8,7 @@ build:
   googleCloudBuild:
     projectId: drostub-dev
   artifacts:
-    - image: us.gcr.io/drostub-dev/auth
+    - image: us.gcr.io/drostub-dev/auth:dev
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +16,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/drostub-dev/client
+    - image: us.gcr.io/drostub-dev/client:dev
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,7 +24,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/drostub-dev/tickets
+    - image: us.gcr.io/drostub-dev/tickets:dev
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -32,7 +32,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/drostub-dev/orders
+    - image: us.gcr.io/drostub-dev/orders:dev
       context: orders
       docker:
         dockerfile: Dockerfile
@@ -40,7 +40,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/drostub-dev/expiration
+    - image: us.gcr.io/drostub-dev/expiration:dev
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -48,7 +48,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/drostub-dev/payments
+    - image: us.gcr.io/drostub-dev/payments:dev
       context: payments
       docker:
         dockerfile: Dockerfile
