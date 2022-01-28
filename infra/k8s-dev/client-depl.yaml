@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: ptavarez/client:prod
+          image: ptavarez/client:dev
 ---
 apiVersion: v1
 kind: Service
