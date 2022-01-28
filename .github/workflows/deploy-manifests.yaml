@@ -1,11 +1,11 @@
-name: deploy-manifests
+name: Deploy Manifest
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'infra/k8s/**'
+      - 'infra/k8s-prod/**'
   workflow_dispatch:
     inputs:
       logLevel:
@@ -55,5 +55,5 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f infra/k8s
+          kubectl apply -f infra/k8s-prod
           kubectl get services -o wide
