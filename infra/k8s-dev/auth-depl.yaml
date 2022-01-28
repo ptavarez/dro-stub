@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: ptavarez/auth:dev
+          image: ptavarez/auth:prod
           env:
             - name: MONGO_URI
               value: 'mongodb://auth-mongo-srv:27017/auth'
