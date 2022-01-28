@@ -1,4 +1,4 @@
-name: deploy-payments
+name: Payments Service Deployment
 
 on:
   push:
@@ -23,9 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - run: cd payments && docker build -t ptavarez/payments .
+      - run: cd payments && docker build -t ptavarez/payments:prod .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker push ptavarez/payments
+      - run: docker push ptavarez/payments:prod
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
@@ -49,6 +49,6 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f infra/k8s/payments-depl.yaml
+          kubectl apply -f infra/k8s-prod/payments-depl.yaml
           kubectl rollout restart deployment payments-depl
           kubectl get services -o wide

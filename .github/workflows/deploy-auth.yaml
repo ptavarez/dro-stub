@@ -1,4 +1,4 @@
-name: deploy-auth
+name: Auth Service Deployment
 
 on:
   push:
@@ -23,9 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - run: cd auth && docker build -t ptavarez/auth .
+      - run: cd auth && docker build -t ptavarez/auth:prod .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker push ptavarez/auth
+      - run: docker push ptavarez/auth:prod
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
@@ -49,6 +49,6 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f infra/k8s/auth-depl.yaml
+          kubectl apply -f infra/k8s-prod/auth-depl.yaml
           kubectl rollout restart deployment auth-depl
           kubectl get services -o wide
