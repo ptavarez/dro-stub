@@ -1,4 +1,4 @@
-name: tests-auth
+name: CI Auth
 
 on:
   pull_request:
@@ -7,7 +7,18 @@ on:
 
 jobs:
   build:
+    name: CI Auth
     runs-on: ubuntu-latest
+    environment: development
+    
     steps:
-      - uses: actions/checkout@v2
-      - run: cd auth && npm install && npm run test:ci
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Change into auth directory and run npm install
+        run: |-
+          cd auth && npm install
+          
+      - name: Run Unit Tests
+        run: |-
+          npm run test
