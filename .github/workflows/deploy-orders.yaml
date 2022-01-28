@@ -1,4 +1,4 @@
-name: Orders Service Deployment
+name: deploy-orders
 
 on:
   push:
@@ -23,9 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - run: cd orders && docker build -t ptavarez/orders:prod .
+      - run: cd orders && docker build -t ptavarez/orders .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker push ptavarez/orders:prod
+      - run: docker push ptavarez/orders
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
@@ -49,6 +49,6 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f infra/k8s-prod/orders-depl.yaml
+          kubectl apply -f infra/k8s/orders-depl.yaml
           kubectl rollout restart deployment orders-depl
           kubectl get services -o wide

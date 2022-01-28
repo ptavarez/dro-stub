@@ -1,4 +1,4 @@
-name: Tickets Service Deployment
+name: deploy-tickets
 
 on:
   push:
@@ -23,9 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - run: cd tickets && docker build -t ptavarez/tickets:prod .
+      - run: cd tickets && docker build -t ptavarez/tickets .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker push ptavarez/tickets:prod
+      - run: docker push ptavarez/tickets
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
@@ -49,6 +49,6 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f infra/k8s-prod/tickets-depl.yaml
+          kubectl apply -f infra/k8s/tickets-depl.yaml
           kubectl rollout restart deployment tickets-depl
           kubectl get services -o wide

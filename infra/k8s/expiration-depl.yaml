@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: expiration
-          image: ptavarez/expiration:dev
+          image: ptavarez/expiration
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
