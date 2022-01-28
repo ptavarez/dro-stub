@@ -1,4 +1,4 @@
-name: Client Service Deployment
+name: deploy-client
 
 on:
   push:
@@ -23,9 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - run: cd client && docker build -t ptavarez/client:prod .
+      - run: cd client && docker build -t ptavarez/client .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker push ptavarez/client:prod
+      - run: docker push ptavarez/client
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
@@ -49,6 +49,6 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f infra/k8s-prod/client-depl.yaml
+          kubectl apply -f infra/k8s/client-depl.yaml
           kubectl rollout restart deployment client-depl
           kubectl get services -o wide
