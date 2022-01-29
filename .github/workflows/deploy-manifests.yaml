@@ -40,18 +40,18 @@ jobs:
           credentials_json: '${{ env.GKE_SA_KEY }}'
 
       - name: gcloud Setup
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
-          service_account_key: $GKE_SA_KEY
-          project_id: $GKE_PROJECT
+          service_account_key: ${{ env.GKE_SA_KEY }}
+          project_id: ${{ env.GKE_PROJECT }}
           export_default_credentials: true
 
       - name: GKE Cluster Connection
         uses: google-github-actions/get-gke-credentials@v0.2.1
         with:
-          cluster_name: $GKE_CLUSTER
-          location: $GKE_ZONE
-          credentials: $GKE_SA_KEY
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ env.GKE_SA_KEY }}
 
       - name: Deploy
         run: |-
