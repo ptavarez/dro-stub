@@ -1,4 +1,4 @@
-name: tests-auth
+name: Auth Unit Tests
 
 on:
   pull_request:

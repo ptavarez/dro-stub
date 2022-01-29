@@ -6,9 +6,9 @@ deploy:
       - ./infra/k8s-dev/*
 build:
   googleCloudBuild:
-    projectId: drostub-dev
+    projectId: drostub-development
   artifacts:
-    - image: us.gcr.io/drostub-dev/auth
+    - image: us.gcr.io/drostub-development/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +16,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/drostub-dev/client
+    - image: us.gcr.io/drostub-development/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,7 +24,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/drostub-dev/tickets
+    - image: us.gcr.io/drostub-development/tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -32,7 +32,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/drostub-dev/orders
+    - image: us.gcr.io/drostub-development/orders
       context: orders
       docker:
         dockerfile: Dockerfile
@@ -40,7 +40,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/drostub-dev/expiration
+    - image: us.gcr.io/drostub-development/expiration
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -48,7 +48,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/drostub-dev/payments
+    - image: us.gcr.io/drostub-development/payments
       context: payments
       docker:
         dockerfile: Dockerfile
