@@ -37,7 +37,7 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '$GKE_SA_KEY'
+          credentials_json: '${{ env.GKE_SA_KEY }}'
 
       - name: gcloud Setup
         uses: google-github-actions/setup-gcloud@master
@@ -55,5 +55,5 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f infra/k8s
+          kubectl apply -f infra/k8s-prod
           kubectl get services -o wide
