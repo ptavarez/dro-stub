@@ -11,7 +11,7 @@ env:
   GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
-  ENVIRONMENT: ${{  GITHUB_BASE_REF == 'develop' && 'development' || 'staging' }}
+  ENVIRONMENT: ${{  github.base_ref == 'develop' && 'development' || 'staging' }}
 
 jobs:
   setup-build-publish-deploy:
