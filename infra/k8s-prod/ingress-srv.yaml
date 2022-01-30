@@ -5,10 +5,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
+    nginx.ingress.kubernetes.io/from-to-www-redirect: 'true'
 spec:
   rules:
     - host: www.drostub.co
-      http:
+      http: &http_rules
         paths:
           - path: /api/users/?(.*)
             pathType: Prefix
@@ -45,13 +46,14 @@ spec:
                 name: client-srv
                 port:
                   number: 3000
+    - host: dev.drostub.co
+      http: *http_rules
+    - host: staging.drostub.co
+      http: *http_rules
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
-    service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.drostub.co'
   labels:
     helm.sh/chart: ingress-nginx-2.0.3
     app.kubernetes.io/name: ingress-nginx
