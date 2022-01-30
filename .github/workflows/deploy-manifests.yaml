@@ -9,13 +9,12 @@ env:
   GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
-  ENVIRONMENT: ${{  github.base_ref == 'develop' && 'development' || 'staging' }}
 
 jobs:
   setup-build-publish-deploy:
     name: Deploy Manifests
     runs-on: ubuntu-latest
-    environment: ${{ env.ENVIRONMENT }}
+    environment: ${{  github.base_ref == 'develop' && 'development' || 'staging' }}
 
     steps:
       - name: Checkout
