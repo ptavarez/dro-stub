@@ -2,33 +2,22 @@ name: Deploy Manifests
 
 on:
   push:
-    branches:
-      - develop
+    branches: [develop, main]
     paths:
       - 'infra/k8s-prod/**'
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
 
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
+  ENVIRONMENT: ${{  GITHUB_BASE_REF == 'develop' && 'development' || 'staging' }}
 
 jobs:
   setup-build-publish-deploy:
     name: Deploy Manifests
     runs-on: ubuntu-latest
-    environment: development
+    environment: ${{ ENVIRONMENT }}
 
     steps:
       - name: Checkout
