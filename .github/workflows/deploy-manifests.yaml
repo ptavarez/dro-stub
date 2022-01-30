@@ -15,7 +15,7 @@ jobs:
   setup-build-publish-deploy:
     name: Deploy Manifests
     runs-on: ubuntu-latest
-    environment: ${{ ENVIRONMENT }}
+    environment: ${{ env.ENVIRONMENT }}
 
     steps:
       - name: Checkout
