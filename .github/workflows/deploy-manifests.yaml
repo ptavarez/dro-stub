@@ -17,15 +17,13 @@ jobs:
     environment: development
     
     steps:
-      - name: Get branch name (merge)
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
-
-      - name: Get branch name (pull request)
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-
-      - name: Debug
+      - name: Branch Name
         run: echo ${{ env.BRANCH_NAME }}
+      - name: Branch Name II
+        run: echo ${{ github.event.pull_request.base.sha }}
+      - name: Branch Name II
+        run: echo ${{ github.event.pull_request.base.sha }}
+      - name: Branch Name III
+        run: echo ${{ env.GITHUB_HEAD_REF  }}
+      - name: Branch Name IV
+        run: echo ${{ env.GITHUB_BASE_REF  }}
