@@ -18,12 +18,14 @@ jobs:
     
     steps:
       - name: Branch Name
-        run: echo ${{ env.BRANCH_NAME }}
-      - name: Branch Name II
-        run: echo ${{ github.event.pull_request.base.sha }}
-      - name: Branch Name II
-        run: echo ${{ github.event.pull_request.base.sha }}
-      - name: Branch Name III
-        run: echo ${{ env.GITHUB_HEAD_REF  }}
-      - name: Branch Name IV
-        run: echo ${{ env.GITHUB_BASE_REF  }}
+        shell: bash
+        run: |
+          echo "GH_REPO: $GH_REPO"
+          echo "GH_PR_SHA: $GH_PR_SHA"
+          echo "GH_HR: $GH_HR"
+          echo "GH_BR: $GH_BR"
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_PR_SHA: ${{ github.event.pull_request.base.sha }}
+          GH_HR: ${{ env.GITHUB_HEAD_REF }}
+          GH_BR: ${{ env.GITHUB_BASE_REF  }}
