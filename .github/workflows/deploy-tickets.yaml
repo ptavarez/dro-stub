@@ -2,8 +2,7 @@ name: Build Tickets Image and Deploy to GKE
 
 on:
   push:
-    branches:
-      - develop
+    branches: [develop, main]
     paths:
       - 'tickets/**'
   workflow_dispatch:
@@ -30,7 +29,7 @@ jobs:
   setup-build-publish-deploy:
     name: Build Tickets Image and Deploy to GKE
     runs-on: ubuntu-latest
-    environment: development
+    environment: ${{  github.ref == 'refs/heads/develop' && 'development' || 'staging' }}
 
     steps:
       - name: Checkout
