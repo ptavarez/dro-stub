@@ -3,21 +3,18 @@ name: Deploy Manifests
 on:
   push:
     branches: [develop, main]
-    paths:
-      - 'infra/k8s-prod/**'
 
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
-  ENVIRONMENT: ${{  github.base_ref == 'develop' && 'development' || 'staging' }}
 
 jobs:
   setup-build-publish-deploy:
     name: Deploy Manifests
     runs-on: ubuntu-latest
-    environment: ${{ ENVIRONMENT }}
+    environment: ${{  github.base_ref == 'develop' && 'development' || 'staging' }}
 
     steps:
       - name: Checkout
