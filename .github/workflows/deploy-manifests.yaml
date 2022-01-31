@@ -21,4 +21,3 @@ jobs:
         run: |-
           echo: ${{  github.base_ref == 'refs/heads/develop' && 'development' || 'staging' }}
           echo: ${{  github.base_ref }}
-          echo: ${{"Base ref is $GITHUB_BASE_REF"}}
