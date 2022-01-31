@@ -17,8 +17,15 @@ jobs:
     environment: development
     
     steps:
-      - name: Deploy
-        run: |-
-          echo: ${{  github.base_ref == 'refs/heads/develop' && 'development' || 'staging' }}
-          echo: ${{  github.base_ref }}
-          echo: ${{  github.head_ref }}
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
+      - name: Debug
+        run: echo ${{ env.BRANCH_NAME }}
