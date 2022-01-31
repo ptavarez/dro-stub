@@ -2,8 +2,7 @@ name: Build Client Image and Deploy to GKE
 
 on:
   push:
-    branches:
-      - develop
+    branches: [develop, main]
     paths:
       - 'client/**'
   workflow_dispatch:
@@ -25,11 +24,12 @@ env:
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 jobs:
   setup-build-publish-deploy:
     name: Build Client Image and Deploy to GKE
     runs-on: ubuntu-latest
-    environment: development
+    environment: ${{  github.ref == 'refs/heads/develop' && 'development' || 'staging' }}
 
     steps:
       - name: Checkout
