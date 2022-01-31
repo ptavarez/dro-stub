@@ -26,6 +26,4 @@ jobs:
           echo "GH_BR: $GH_BR"
         env:
           GH_REPO: ${{ github.repository }}
-          GH_PR_SHA: ${{ github.event.pull_request.base.sha }}
-          GH_HR: ${{ env.GITHUB_HEAD_REF }}
-          GH_BR: ${{ env.GITHUB_BASE_REF  }}
+          GH_REF: ${{ github.ref }}
