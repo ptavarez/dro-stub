@@ -1,0 +1,14 @@
+name: CI
+on:
+  pull_request:
+    paths-ignore:
+      - 'auth/**'
+      - 'orders/**'
+      - 'payments/**'
+      - 'tickets/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No build required" '
