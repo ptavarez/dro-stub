@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'auth/**'
+
   workflow_dispatch:
     inputs:
       logLevel:

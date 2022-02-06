@@ -5,6 +5,7 @@ on:
     branches: [develop, main]
     paths:
       - 'auth/**'
+  
   workflow_dispatch:
     inputs:
       logLevel:
@@ -27,10 +28,24 @@ env:
   DOCKER_TAG: ${{ github.ref == 'refs/heads/develop' && 'dev' || 'prod'}}
 
 jobs:
+  build:
+    name: Run Auth Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Run npm install
+        run: cd auth && npm install
+        
+      - name: Run Unit Tests
+        run: cd auth && npm run test:ci
+    
   setup-build-publish-deploy:
     name: Build Auth Image and Deploy to GKE
     runs-on: ubuntu-latest
     environment: ${{  github.ref == 'refs/heads/develop' && 'development' || 'staging' }}
+    needs: build
 
     steps:
       - name: Checkout
