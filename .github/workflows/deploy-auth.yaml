@@ -31,6 +31,7 @@ jobs:
     name: Build Auth Image and Deploy to GKE
     runs-on: ubuntu-latest
     environment: ${{  github.ref == 'refs/heads/develop' && 'development' || 'staging' }}
+    needs: CI
 
     steps:
       - name: Checkout
