@@ -1,11 +1,11 @@
 name: Auth Unit Tests
 
 on:
-  pull_request:
-    paths:
-      - 'auth/**'
   push:
     branches: [develop, main]
+    paths:
+      - 'auth/**'
+  pull_request:
     paths:
       - 'auth/**'
 
