@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: ptavarez/auth:${{ env.DOCKER_TAG }}
+          image: ptavarez/auth:${DOCKER_TAG}
           env:
             - name: MONGO_URI
               value: 'mongodb://auth-mongo-srv:27017/auth'
