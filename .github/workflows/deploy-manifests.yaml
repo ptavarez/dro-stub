@@ -55,6 +55,5 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f infra/auth-depl.yaml
           kubectl apply -f infra/k8s-prod
           kubectl get services -o wide
