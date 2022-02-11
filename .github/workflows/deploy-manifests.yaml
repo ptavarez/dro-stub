@@ -54,8 +54,7 @@ jobs:
 
       - name: Deploy
         run: |-
-          CLUSTER_ENV=${{ github.ref == 'refs/heads/develop' && 'dev' || 'prod'}} 
-          envsubst < infra/auth-depl.yaml.template > auth-depl.yaml
+          CLUSTER_ENV=${{ github.ref == 'refs/heads/develop' && 'dev' || 'prod'}} envsubst < infra/auth-depl.yaml.template > auth-depl.yaml
           cat auth-depl.yaml
           kubectl apply -f auth-depl.yaml
           kubectl apply -f infra/k8s-prod
