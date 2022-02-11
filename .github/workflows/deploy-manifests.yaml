@@ -22,6 +22,7 @@ env:
   GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
+  DOCKER_TAG: ${{ github.ref == 'refs/heads/develop' && 'dev' || 'prod'}}
 
 jobs:
   setup-build-publish-deploy:
@@ -54,7 +55,7 @@ jobs:
 
       - name: Deploy
         run: |-
-          CLUSTER_ENV=${{ github.ref == 'refs/heads/develop' && 'dev' || 'prod'}} envsubst < infra/auth-depl.yaml.template > auth-depl.yaml
+          envsubst < infra/auth-depl.yaml.template > auth-depl.yaml
           cat auth-depl.yaml
           kubectl apply -f auth-depl.yaml
           kubectl apply -f infra/k8s-prod
