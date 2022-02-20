@@ -25,7 +25,7 @@ env:
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  DOCKER_TAG: ${{ github.ref == 'refs/heads/develop' && env.GITHUB_SHA || 'prod'}}
+  DOCKER_TAG: ${{ github.ref == 'refs/heads/develop' && GITHUB_SHA || 'prod'}}
 
 jobs:
   build:
