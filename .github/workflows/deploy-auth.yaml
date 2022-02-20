@@ -58,9 +58,11 @@ jobs:
 
       - name: Build Image & Push to Docker Hub
         run: |-
-          cd auth && docker build -t ptavarez/auth:${{  env.DOCKER_TAG }} .
+          cd auth && docker build -t ptavarez/auth:${{ env.DOCKER_TAG }} .
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker push ptavarez/auth:${{  env.DOCKER_TAG }}
+          docker push ptavarez/auth:${{ env.DOCKER_TAG }}
+        env:
+          DOCKER_TAG: ${{ steps.gh_sha.outputs.sha_short }}
 
       - name: Create Auth Depl File
         run: |-
