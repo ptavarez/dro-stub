@@ -44,7 +44,7 @@ jobs:
   setup-build-publish-deploy:
     name: Build Auth Image and Deploy to GKE
     runs-on: ubuntu-latest
-    environment: ${{  github.ref == 'refs/heads/develop' && 'development' || 'staging' }}
+    environment: ${{  github.ref == 'refs/heads/develop' && 'latest' || 'staging' }}
     needs: build
 
     steps:
