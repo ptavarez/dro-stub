@@ -25,7 +25,6 @@ env:
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  DOCKER_TAG: ${{ github.ref == 'refs/heads/develop' && GITHUB_SHA || 'prod'}}
 
 jobs:
   build:
@@ -50,12 +49,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
+      - name: Declare Github SHA Variable
+        id: gh_sha
+        shell: bash
+        run: |-
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
       - name: Build Image & Push to Docker Hub
         run: |-
           cd auth && docker build -t ptavarez/auth:${{  env.DOCKER_TAG }} .
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push ptavarez/auth:${{  env.DOCKER_TAG }}
+        env:
+          DOCKER_TAG: ${{ steps.gh_sha.outputs.sha_short }}
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
