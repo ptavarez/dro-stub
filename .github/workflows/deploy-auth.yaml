@@ -50,7 +50,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Declare Github SHA Variable
         id: gh_sha
         shell: bash
@@ -62,6 +62,11 @@ jobs:
           cd auth && docker build -t ptavarez/auth:${{  env.DOCKER_TAG }} .
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push ptavarez/auth:${{  env.DOCKER_TAG }}
+
+      - name: Create Auth Depl File
+        run: |-
+          DOCKER_TAG=${{ steps.gh_sha.outputs.sha_short }} envsubst < infra/auth-depl.yaml.template > auth-depl.yaml
+          cat auth-depl.yaml
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
@@ -84,8 +89,6 @@ jobs:
 
       - name: Deploy
         run: |-
-          envsubst < infra/auth-depl.yaml.template > auth-depl.yaml
-          cat auth-depl.yaml
           kubectl apply -f auth-depl.yaml
           kubectl rollout restart deployment auth-depl
           kubectl get services -o wide
