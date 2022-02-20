@@ -25,7 +25,6 @@ env:
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  DOCKER_TAG: ${{ steps.gh_sha.outputs.sha_short }}
 
 jobs:
   build:
