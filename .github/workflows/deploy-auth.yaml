@@ -25,6 +25,7 @@ env:
   GKE_ZONE: ${{ secrets.GKE_ZONE }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  BACKEND_SERVICE: 'auth'
 
 jobs:
   build:
