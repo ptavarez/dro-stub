@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: ${BACKEND_SERVICE}-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: ${BACKEND_SERVICE}
   template:
     metadata:
       labels:
-        app: auth
+        app: ${BACKEND_SERVICE}
     spec:
       containers:
-        - name: auth
-          image: ptavarez/auth:${DOCKER_TAG}
+        - name: ${BACKEND_SERVICE}
+          image: ptavarez/${BACKEND_SERVICE}:${DOCKER_TAG}
           env:
             - name: MONGO_URI
-              value: 'mongodb://auth-mongo-srv:27017/auth'
+              value: 'mongodb://auth-mongo-srv:27017/${BACKEND_SERVICE}'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -27,10 +27,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: ${BACKEND_SERVICE}-srv
 spec:
   selector:
-    app: auth
+    app: ${BACKEND_SERVICE}
   ports:
     - name: auth
       protocol: TCP
